@@ -10,7 +10,7 @@ Uma api de listagens dos filmes indicados ao oscar 2022.
 
 ## Documentação
 
-  Todos api está toda documentada, e pode ser acessada a partir do /doc ao iniciar o servidor.
+  Toda api está foi documentada, e pode ser acessada a partir do /doc ao iniciar o servidor.
 
 ## Iniciando projeto
 
