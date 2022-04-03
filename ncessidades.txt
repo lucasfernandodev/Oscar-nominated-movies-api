@@ -1,0 +1,20 @@
+filmes
+  - Cartas do filmes
+  - Titulo do filme
+  - Categoria
+  - Gênero
+  - Diretor
+  - Ano
+  - Link para filme no site do imdb
+  - scoreImdb
+  - duração
+  - numero de indicações
+
+
+Filter
+  - Categoria
+  - Gênero
+  - Diretor
+
+ * Paginação de 5 itens por Pagina
+ * rotas de gestão/edição de todos os dados 

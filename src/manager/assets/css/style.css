@@ -1,0 +1,196 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+input,textarea,button{
+  height: 38px;
+  font-family: inherit;
+  border-radius: 8px;
+  min-width: 180px;
+  border: none;
+  display: block;
+}
+
+body{
+  background: #232339;
+  color: #eee;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  padding-bottom: 100px;
+}
+
+.edit{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 900px;
+  gap: 24px;
+}
+
+.edit .chose-movie{
+  width: 100%;
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.edit .chose-movie select{
+  width: 230px;
+  height: 38px;
+  cursor: pointer;
+}
+
+.edit .chose-movie select:focus{
+  outline: solid #9999ff;
+}
+
+.group-result{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.view-thumb{
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px #09091969;
+  max-height: 460px;
+}
+
+.view-thumb img{
+  width: 300px;
+  height: auto;
+  background: #191929;
+  display: block;
+  position: relative;
+  border-radius: 4px;
+  max-height: 460px;
+}
+
+.view-thumb img::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 100%;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  background-image: url(../image/Logo-Oscars.svg);
+  background-repeat: no-repeat;
+  background-size: 180px 80px;
+  background-position: center center;
+  z-index: 1000;
+  max-height: 460px;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  gap: 24px;
+}
+
+.form .formInputs{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 14px;
+  max-height: 400px;
+}
+
+.form .form-group{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 320px;
+}
+
+.form .form-group.hidden{
+  display: none;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.form .form-group label{
+  font-weight: 500;
+}
+
+.form .form-group label::first-letter{
+  text-transform: uppercase;
+}
+
+.form .form-group input{
+  padding-left: 16px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #232339;
+  display: block;
+  min-width: 250px;
+}
+
+.form .form-group input:focus{
+  outline: solid #9999ff;
+}
+
+.form .form-group input::placeholder{
+  font-size: 13px;
+  color: #39395555;
+  text-transform: unset;
+}
+
+
+
+.form .group-button{
+  display: flex;
+  width: 100%;
+
+}
+
+.form .group-button .btn-submit{
+  width: 100%;
+  background: linear-gradient(to left, #05c46b, #0be881);
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100%;
+  width: 320px;
+  cursor: pointer;
+  transition: linear 250ms;
+  box-shadow: 0px 4px 16px #09091999;
+}
+
+.btn-submit.active:hover{
+  transform: translateY(-3px);
+}
+
+.btn-submit.disabled{
+  cursor: default !important;
+  background: #74c7a0 !important;
+  user-select: none;
+}

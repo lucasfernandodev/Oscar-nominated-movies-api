@@ -1,0 +1,828 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Indicados ao oscar 2022 - API",
+    "description": "Essa API tem como objetivo listar todos os filmes indicados ao oscar em 2022.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "paths": {
+    "/movies?skip=page": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "summary": "Lista Filmes",
+        "description": "Rota responsável por Listar os filmes, por paginação no padrão masonry com 5 itens por pagina",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Carrega 5 paginas ordenadas pela paginação",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "skip": {
+                  "type": "number",
+                  "example": 3
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listMovie"
+                },
+                "examples": {
+                  "Movie": {
+                    "value": {
+                      "pagination": 7,
+                      "current_page": 1,
+                      "data": [
+                        {
+                          "id": 1,
+                          "thumb": "https://image.tmdb.org/t/p/w500/3mInLZyPOVLsZRsBwNHi3UJXXnm.jpg",
+                          "title": "Belfast",
+                          "category": "await",
+                          "genre": "drama",
+                          "director": "Kenneth Branagh",
+                          "year": "Wed Mar 09 2022 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 98,
+                          "score": "7.2",
+                          "link": "https://www.focusfeatures.com/belfast",
+                          "createdAt": "2022-03-30T19:57:30.662Z",
+                          "updatedAt": "2022-03-30T19:57:30.662Z"
+                        },
+                        {
+                          "id": 2,
+                          "thumb": "https://image.tmdb.org/t/p/w500/BzVjmm8l23rPsijLiNLUzuQtyd.jpg",
+                          "title": "CODA",
+                          "category": "await",
+                          "genre": "drama,music,romance",
+                          "director": "Siân Heder",
+                          "year": "Tue Aug 10 2021 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 112,
+                          "score": "8.1",
+                          "link": "https://tv.apple.com/movie/umc.cmc.3eh9r5iz32ggdm4ccvw5igiir",
+                          "createdAt": "2022-03-30T19:57:30.835Z",
+                          "updatedAt": "2022-03-30T19:57:30.835Z"
+                        },
+                        {
+                          "id": 3,
+                          "thumb": "https://image.tmdb.org/t/p/w500/th4E1yqsE8DGpAseLiUrI60Hf8V.jpg",
+                          "title": "Don't Look Up",
+                          "category": "await",
+                          "genre": "comedy,drama,science fiction",
+                          "director": "Adam McKay",
+                          "year": "Thu Dec 23 2021 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 138,
+                          "score": "7.2",
+                          "link": "https://www.netflix.com/title/81252357",
+                          "createdAt": "2022-03-30T19:57:30.839Z",
+                          "updatedAt": "2022-03-30T19:57:30.839Z"
+                        },
+                        {
+                          "id": 4,
+                          "thumb": "https://image.tmdb.org/t/p/w500/xlEnJ6O2xIlcJPvo23PWUiiSS21.jpg",
+                          "title": "ドライブ・マイ・カー",
+                          "category": "await",
+                          "genre": "drama",
+                          "director": "Ryusuke Hamaguchi",
+                          "year": "Fri Dec 10 2021 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 179,
+                          "score": "7.4",
+                          "link": "https://lineup.the-match-factory.digital/cannes/drive-my-car",
+                          "createdAt": "2022-03-30T19:57:30.841Z",
+                          "updatedAt": "2022-03-30T19:57:30.841Z"
+                        },
+                        {
+                          "id": 5,
+                          "thumb": "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+                          "title": "Dune",
+                          "category": "await",
+                          "genre": "science fiction,adventure",
+                          "director": "Denis Villeneuve",
+                          "year": "Wed Oct 20 2021 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 155,
+                          "score": "7.9",
+                          "link": "https://www.dunemovie.com/",
+                          "createdAt": "2022-03-30T19:57:30.843Z",
+                          "updatedAt": "2022-03-30T19:57:30.843Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pagina não encontrada"
+          },
+          "500": {
+            "description": "Erro ao buscar lista de filmes"
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "summary": "Retorna as informações de um filme",
+        "description": "Rota para buscar as informações de um filme especifico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "params",
+            "required": true,
+            "description": "É necessário o id do filme",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie"
+                },
+                "examples": {
+                  "Movie": {
+                    "value": {
+                      "id": 1,
+                      "thumb": "https://image.tmdb.org/t/p/w500/3mInLZyPOVLsZRsBwNHi3UJXXnm.jpg",
+                      "title": "Belfast",
+                      "category": "await",
+                      "genre": "drama",
+                      "director": "Kenneth Branagh",
+                      "year": "Wed Mar 09 2022 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                      "duration": 98,
+                      "score": "7.2",
+                      "link": "https://www.focusfeatures.com/belfast",
+                      "createdAt": "2022-03-30T19:57:30.662Z",
+                      "updatedAt": "2022-03-30T19:57:30.662Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Movie"
+        ],
+        "summary": "Alterar informação",
+        "description": "Rota para alterar informações de um filme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "params",
+            "required": true,
+            "description": "id do filme",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 3
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/receivedMovie"
+                },
+                "examples": {
+                  "Movie": {
+                    "value": {
+                      "id": 1,
+                      "thumb": "https://image.tmdb.org/t/p/w500/3mInLZyPOVLsZRsBwNHi3UJXXnm.jpg",
+                      "title": "Filme com um novo nome",
+                      "category": "await",
+                      "genre": "drama",
+                      "director": "Kenneth Branagh",
+                      "year": "Wed Mar 09 2022 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                      "duration": 98,
+                      "score": "7.2",
+                      "link": "https://www.focusfeatures.com/belfast",
+                      "createdAt": "2022-03-30T19:57:30.662Z",
+                      "updatedAt": "2022-03-30T19:57:30.662Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Filme não encontrado"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movie"
+              },
+              "examples": {
+                "Movie": {
+                  "value": {
+                    "title": "Filme com um novo nome"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Movie"
+        ],
+        "summary": "Deletar filme",
+        "description": "Rota responsável por remover filme",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "params",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Filme não encontrado"
+          }
+        }
+      }
+    },
+    "/movies/filter/{id}": {
+      "get": {
+        "tags": [
+          "Movie"
+        ],
+        "summary": "Lista filmes com filtro",
+        "description": "Rota responsável por retornar uma lista de filmes filtradas por categoria, gênero ou diretor.",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "params",
+            "required": false,
+            "description": "Caso a listagem retorne uma lista com mais de 5 itens, é possível navegar entre as paginação usando <b>?skip=page</b>",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "skip": {
+                  "type": "number",
+                  "example": 3
+                }
+              }
+            }
+          },
+          {
+            "name": "id",
+            "in": "params",
+            "required": true,
+            "description": "O id é o parâmetro pela qual a lista vai ser filtrada, são aceitos : <b>category</b>, <b>genre</b> e <b>director</b>",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "director"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listMovie"
+                },
+                "examples": {
+                  "Movie": {
+                    "description": "Lista de filmes filtrados pelo gênero drama",
+                    "value": {
+                      "pagination": 7,
+                      "current_page": 1,
+                      "data": [
+                        {
+                          "id": 1,
+                          "thumb": "https://image.tmdb.org/t/p/w500/3mInLZyPOVLsZRsBwNHi3UJXXnm.jpg",
+                          "title": "Belfast",
+                          "category": "await",
+                          "genre": "drama",
+                          "director": "Kenneth Branagh",
+                          "year": "Wed Mar 09 2022 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 98,
+                          "score": "7.2",
+                          "link": "https://www.focusfeatures.com/belfast",
+                          "createdAt": "2022-03-30T19:57:30.662Z",
+                          "updatedAt": "2022-03-30T19:57:30.662Z"
+                        },
+                        {
+                          "id": 4,
+                          "thumb": "https://image.tmdb.org/t/p/w500/xlEnJ6O2xIlcJPvo23PWUiiSS21.jpg",
+                          "title": "ドライブ・マイ・カー",
+                          "category": "await",
+                          "genre": "drama",
+                          "director": "Ryusuke Hamaguchi",
+                          "year": "Fri Dec 10 2021 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 179,
+                          "score": "7.4",
+                          "link": "https://lineup.the-match-factory.digital/cannes/drive-my-car",
+                          "createdAt": "2022-03-30T19:57:30.841Z",
+                          "updatedAt": "2022-03-30T19:57:30.841Z"
+                        },
+                        {
+                          "id": 6,
+                          "thumb": "https://image.tmdb.org/t/p/w500/DPmfcuR8fh8ROYXgdjrAjSGA0o.jpg",
+                          "title": "tick, tick... BOOM!",
+                          "category": "await",
+                          "genre": "drama",
+                          "director": "Lin-Manuel Miranda",
+                          "year": "Thu Nov 18 2021 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 115,
+                          "score": "7.8",
+                          "link": "http://ticktickboommovie.com",
+                          "createdAt": "2022-03-30T19:57:30.846Z",
+                          "updatedAt": "2022-03-30T19:57:30.846Z"
+                        },
+                        {
+                          "id": 15,
+                          "thumb": "https://image.tmdb.org/t/p/w500/gDaxYkYNbHuM2VlUazbcpnFZB6d.jpg",
+                          "title": "Madres paralelas",
+                          "category": "await",
+                          "genre": "drama",
+                          "director": "Pedro Almodóvar",
+                          "year": "Thu Feb 17 2022 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 123,
+                          "score": "6.9",
+                          "link": "https://www.sonyclassics.com/film/parallelmothers",
+                          "createdAt": "2022-03-30T19:59:52.603Z",
+                          "updatedAt": "2022-03-30T19:59:52.603Z"
+                        },
+                        {
+                          "id": 16,
+                          "thumb": "https://image.tmdb.org/t/p/w500/t1oLNRFixpFOVsyz1HCqCUW3wiW.jpg",
+                          "title": "The Lost Daughter",
+                          "category": "await",
+                          "genre": "drama",
+                          "director": "Maggie Gyllenhaal",
+                          "year": "Thu Dec 30 2021 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                          "duration": 122,
+                          "score": "6.6",
+                          "link": "http://www.netflix.com/TheLostDaughter",
+                          "createdAt": "2022-03-30T19:59:52.604Z",
+                          "updatedAt": "2022-03-30T19:59:52.604Z"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros inválidos"
+          },
+          "404": {
+            "description": "Pagina não encontrada"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "O <b>value</b> é o valor a ser filtrado, se estiver vazio a filtragem sera invalida",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "Movie": {
+                  "value": {
+                    "value": "Kenneth Branagh"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies": {
+      "post": {
+        "tags": [
+          "Movie"
+        ],
+        "summary": "Cadastrar filme",
+        "description": "Rota responsável por cadastrar um novo filmes",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/receivedMovie"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados recebidos são inválidos"
+          },
+          "404": {
+            "description": "Filme já existe no banco de dados"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movie"
+              },
+              "examples": {
+                "Movie": {
+                  "value": {
+                    "thumb": "https://image.tmdb.org/t/p/w500/3mInLZyPOVLsZRsBwNHi3UJXXnm.jpg",
+                    "title": "Belfast",
+                    "category": "await",
+                    "genre": "drama",
+                    "director": "Kenneth Branagh",
+                    "year": "Wed Mar 09 2022 21:00:00 GMT-0300 (Horário Padrão de Brasília)",
+                    "duration": 98,
+                    "score": "7.2",
+                    "link": "https://www.focusfeatures.com/belfast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "thumb": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "director": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "score": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          }
+        }
+      },
+      "listMovie": {
+        "type": "object",
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "pagination": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item1": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "thumb": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "director": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "score": {
+                      "type": "string"
+                    },
+                    "link": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "item2": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "thumb": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "director": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "score": {
+                      "type": "string"
+                    },
+                    "link": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "item3": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "thumb": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "director": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "score": {
+                      "type": "string"
+                    },
+                    "link": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "item4": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "thumb": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "director": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "score": {
+                      "type": "string"
+                    },
+                    "link": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "item5": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "thumb": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "director": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "score": {
+                      "type": "string"
+                    },
+                    "link": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "receivedMovie": {
+        "type": "object",
+        "properties": {
+          "thumb": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "director": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "score": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "schemas": [
+    "http"
+  ]
+}
