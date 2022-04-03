@@ -18,4 +18,4 @@ Uma api de listagens dos filmes indicados ao oscar 2022.
 
   ## Baixando
 
-                git clone git@github.com:lucasfernandodev/snake.git
+    git clone git@github.com:lucasfernandodev/snake.git
