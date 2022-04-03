@@ -18,17 +18,17 @@ Uma api de listagens dos filmes indicados ao oscar 2022.
 
   Toda a api é bem simples e o banco de dados já foi populado.
 
-  ## Baixando
+  ### Baixando
 
     > git clone git@github.com:lucasfernandodev/snake.git
 
-  ## Instalando dependências 
+  ### Instalando dependências 
 
     > cd snake
 
     > npm install ci
 
-  ## Iniciando projeto
+  ### Iniciando projeto
 
     > npm run start
 
