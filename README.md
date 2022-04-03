@@ -3,6 +3,8 @@
 
 Uma api de listagens dos filmes indicados ao oscar 2022.
 
+
+
 ## Descrição
 
   Essa é uma aplicação desenvolvida em Node.js com SqLite e sequelize. O objetivo do
